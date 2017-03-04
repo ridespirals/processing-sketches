@@ -28,17 +28,18 @@ class Orbit {
   void update() {
     if (parent != null) {
       theta += speed;
-      float rsum = r + parent.r;
+      float inOrOut = circle_inside ? -parent.r : parent.r;
+      float rsum = r + inOrOut;
       x = parent.x + rsum * cos(theta);
       y = parent.y + rsum * sin(theta);
     }
   }
   
   void show() {
-    stroke(255, 100);
-    strokeWeight(1);
-    noFill();
-    ellipse(x, y, r * 2, r * 2);
+    //stroke(255, 100);
+    //strokeWeight(1);
+    //noFill();
+    //ellipse(x, y, r * 2, r * 2);
   }
   
   Orbit addChild() {

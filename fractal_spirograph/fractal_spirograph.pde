@@ -2,7 +2,8 @@ float theta = -PI/2;
 ArrayList<PVector> path;
 Orbit orbit;
 Orbit end;
-int resolution = 4;
+int resolution = 60;
+boolean circle_inside = false;
 
 void setup() {
   size(600, 600);
@@ -10,7 +11,7 @@ void setup() {
   orbit = new Orbit(300, 300, 150, 0);
   
   Orbit next = orbit;
-  for(int i = 0; i < 22; i++) {
+  for(int i = 0; i < 16; i++) {
     next = next.addChild();
   }
   end = next;
@@ -19,19 +20,22 @@ void setup() {
 void draw() {
   background(51);
 
-  Orbit current = orbit;
-  while (current != null) {
-    current.update();
-    current.show();
-    current = current.child;
+  // loop for resolution
+  for (int i = 0; i < resolution; i++) {
+    Orbit current = orbit;
+    while (current != null) {
+      current.update();
+      current.show();
+      current = current.child;
+    }
+    path.add(new PVector(end.x, end.y));
   }
-  
-  //end = current;
-  path.add(new PVector(end.x, end.y));
   
   beginShape();
   for (PVector pos : path) {
-    stroke(255, 0, 255);
+    strokeWeight(2);
+    stroke(1, 152, 117);
+    noFill();
     vertex(pos.x, pos.y);
   }
   endShape();
